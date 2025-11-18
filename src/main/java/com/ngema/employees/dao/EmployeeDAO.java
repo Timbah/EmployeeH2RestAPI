@@ -5,7 +5,7 @@ import com.ngema.employees.entity.Employee;
 import java.util.List;
 
 public interface EmployeeDAO {
-
+//
     List<Employee> findAll();
 
     Employee findById(long theId);
