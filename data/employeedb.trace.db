@@ -1,0 +1,13 @@
+2025-11-18 21:43:11.513859+02:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "-- Inserting data\000d\000a\000d\000aINSERT INTO employee (first_name, last_name, email)\000d\000aVALUES\000d\000a('Leslie', 'Andrews', 'leslie@luv2code.com'),\000d\000a('Emma', 'Baumgarten', 'emma@luv2code.com'),\000d\000a('Yuri', 'Petrov', 'yuri@luv2code.com'),\000d\000a('Junior', 'Ngema', 'junior_ngema@gmail.com'),\000d\000a('Sinthemba', 'Ngema', 'sinethemba_ngema@gmail.com'),\000d\000a('Thembelani', 'Ngema', 'thembelani_ngema@gmail.com')\000d\000a[*]('Juan', 'Vega', 'juan@luv2code.com')"; SQL statement:
+-- Inserting data
+
+INSERT INTO employee (first_name, last_name, email)
+VALUES
+('Leslie', 'Andrews', 'leslie@luv2code.com'),
+('Emma', 'Baumgarten', 'emma@luv2code.com'),
+('Yuri', 'Petrov', 'yuri@luv2code.com'),
+('Junior', 'Ngema', 'junior_ngema@gmail.com'),
+('Sinthemba', 'Ngema', 'sinethemba_ngema@gmail.com'),
+('Thembelani', 'Ngema', 'thembelani_ngema@gmail.com')
+('Juan', 'Vega', 'juan@luv2code.com') [42000-232]
