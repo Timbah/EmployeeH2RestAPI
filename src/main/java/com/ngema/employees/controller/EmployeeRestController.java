@@ -1,9 +1,11 @@
 package com.ngema.employees.controller;
 
 import com.ngema.employees.entity.Employee;
+import com.ngema.employees.request.EmployeeRequest;
 import com.ngema.employees.service.EmployeeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,5 +41,12 @@ public class EmployeeRestController {
         return theEmployee;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping()
+    public Employee addEmployee(@Valid @RequestBody EmployeeRequest theEmployee) {
+
+        Employee dbEmployee = employeeService.save(theEmployee);
+        return dbEmployee;
+    }
 
 }
