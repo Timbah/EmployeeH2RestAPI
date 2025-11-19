@@ -41,6 +41,7 @@ public class EmployeeRestController {
         return theEmployee;
     }
 
+    @Operation(summary = "Create a new employee", description = "Add a new employee to the database")
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping()
     public Employee addEmployee(@Valid @RequestBody EmployeeRequest theEmployee) {
@@ -48,5 +49,23 @@ public class EmployeeRestController {
         Employee dbEmployee = employeeService.save(theEmployee);
         return dbEmployee;
     }
+
+    @Operation(summary = "Update a single employee", description = "Update the details of a current employee")
+    @ResponseStatus(HttpStatus.OK)
+    @PutMapping("/{employeeId}")
+    public Employee updateEmployee(@PathVariable @Min(value = 1) long employeeId,
+                                   @Valid @RequestBody EmployeeRequest employeeRequest) {
+
+        Employee dbEmployee = employeeService.update(employeeId, employeeRequest);
+        return dbEmployee;
+    }
+
+    @Operation(summary = "Delete an employee", description = "Remove an employee from the database")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping("/{employeeId}")
+    public void deleteEmployee(@PathVariable @Min(value = 1) long employeeId) {
+        employeeService.deleteById(employeeId);
+    }
+
 
 }
