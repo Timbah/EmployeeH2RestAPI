@@ -27,7 +27,7 @@ public class EmployeeDAOJpaImpl implements EmployeeDAO {
         //Execute query and get results list
         List<Employee> employees = theQuery.getResultList();
 
-        //return the results
+        //return the results ss
         return employees;
     }
 
