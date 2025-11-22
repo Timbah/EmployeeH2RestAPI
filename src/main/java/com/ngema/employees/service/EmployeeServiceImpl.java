@@ -1,6 +1,6 @@
 package com.ngema.employees.service;
 
-import com.ngema.employees.dao.EmployeeDAO;
+import com.ngema.employees.dao.EmployeeRepository;
 import com.ngema.employees.entity.Employee;
 import com.ngema.employees.request.EmployeeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,28 +8,37 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private EmployeeDAO employeeDAO;
+    private EmployeeRepository employeeRepository;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeDAO employeeDAO) {
-        this.employeeDAO = employeeDAO;
+    public EmployeeServiceImpl(EmployeeRepository theEmployeeRepository) {
+        this.employeeRepository = theEmployeeRepository;
     }
     //
 
     @Override
     public List<Employee> findAll() {
-        return employeeDAO.findAll();
+        return employeeRepository.findAll();
     }
 
     @Override
     public Employee findById(long theId) {
 
-        Employee employee = employeeDAO.findById(theId);
-        return employee;
+        Optional<Employee> result = employeeRepository.findById(theId);
+
+        Employee theEmployee = null;
+        if(result.isPresent()){
+            theEmployee = result.get();
+        }else{
+            throw new RuntimeException("Did not find the employee id - "+ theId);
+        }
+
+        return theEmployee;
     }
 
     @Transactional
@@ -37,7 +46,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee save(EmployeeRequest employeeRequest) {
 
         Employee employee = convertToEmployee(0, employeeRequest);
-        return employeeDAO.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Transactional
@@ -45,7 +54,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Employee update(long id, EmployeeRequest employeeRequest) {
 
         Employee employee = convertToEmployee(id, employeeRequest);
-        return employeeDAO.save(employee);
+        return employeeRepository.save(employee);
     }
 
     @Override
@@ -59,6 +68,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Transactional
     @Override
     public void deleteById(long theId) {
-        employeeDAO.deleteById(theId);
+        employeeRepository.deleteById(theId);
     }
 }
